@@ -1,0 +1,19 @@
+{
+  "name": "e-corp",
+  "version": "1.0.0",
+  "description": "API Banque pour Bio-society",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node ./bin/www"
+  },
+  "author": "LPDW",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lpdw/e-corp/issues"
+  },
+  "homepage": "https://github.com/lpdw/e-corp#readme",
+  "dependencies": {
+    "express": "^4.15.2"
+  }
+}
