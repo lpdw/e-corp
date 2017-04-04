@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon ./bin/www"
+    "start": "node ./bin/www"
   },
   "author": "LPDW",
   "license": "ISC",
@@ -14,11 +14,24 @@
   },
   "homepage": "https://github.com/lpdw/e-corp#readme",
   "dependencies": {
-    "body-parser": "^1.17.1",
-    "cookie-parser": "^1.4.3",
-    "express": "^4.15.2",
-    "jade": "^1.11.0",
-    "morgan": "^1.8.1",
-    "serve-favicon": "^2.4.2"
+    "bcrypt": "^1.0.2",
+    "body-parser": "~1.15.2",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.1",
+    "debug": "~2.2.0",
+    "ejs": "^2.5.5",
+    "express": "~4.14.0",
+    "express-session": "^1.14.2",
+    "lodash": "^4.17.2",
+    "method-override": "^2.3.7",
+    "morgan": "~1.7.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
+    "pg": "^6.1.2",
+    "sequelize": "^3.28.0",
+    "serve-favicon": "~2.3.0"
+  },
+  "devDependencies": {
+    "sqlite3": "^3.1.8"
   }
 }
