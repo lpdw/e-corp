@@ -64,7 +64,6 @@ paths:
   /compte/{id}:
     get:
       description: information d'un compte utilisateur
-
       parameters:
         - name: id
           in: path
@@ -100,6 +99,7 @@ paths:
           description: unexpected error
           schema:
             $ref: '#/definitions/errorModel'
+  
   /transaction/{id}:
     get:
       description: retourne les transactions effectuées sous ce compte
@@ -222,18 +222,6 @@ definitions:
         format: date
       transactions:
         type: object
-  newCompte:
-    type: object
-    required:
-      - name
-    properties:
-      id:
-        type: integer
-        format: int64
-      name:
-        type: string
-      tag:
-        type: string
   errorModel:
     type: object
     required:
