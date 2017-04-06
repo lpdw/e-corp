@@ -1,0 +1,11 @@
+<% include partials/header %>
+    <%= user.firstname%>
+        <%= user.lastname%>
+
+            Solde du compte :
+            <%= account.credit %>
+                Numéro du compte :
+                <%= account.account_nb %>
+                    Token :
+                    <%=account.token%>
+                        <% include partials/footer %>
