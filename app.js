@@ -57,7 +57,7 @@ passport.deserializeUser(function(obj, done) {
    done(null, obj);
 });
 
-passport.use(authentication.songApiLocalStrategy());
+passport.use(authentication.eCorpAPILocalStrategy());
 
 app.use(passport.initialize());
 app.use(passport.session());
