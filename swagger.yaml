@@ -175,7 +175,7 @@ definitions:
       - noCompteEmetteur
       - noCompteRecepteur
       - message
-      - totalPaiement
+      - montant
     properties:
       id:
         type: integer
@@ -193,7 +193,7 @@ definitions:
         type: string
       message:
         type: string
-      totalPaiement:
+      montant:
         type: number
         format: float
   compte:
