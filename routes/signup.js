@@ -14,12 +14,12 @@ router.get('/', (req, res, next) => {
 });
 
 const bodyVerificator = (req, res, next) => {
-    if (req.body.username && req.body.password && req.body.displayName) {
+    if (req.body.typeofAccount && req.body.firstname && req.body.lastname && req.body.email && req.body.password) {
        return next();
     }
 
     const attributes = _.keys(req.body);
-    const mandatoryAttributes = ['username', 'password', 'displayName'];
+    const mandatoryAttributes = ['typeofAccount', 'firstname', 'lastname', 'email', 'password'];
     const missingAttributes = _.difference(mandatoryAttributes, attributes);
     const emptyAttributes = _.filter(mandatoryAttributes, key => _.isEmpty(req.body[key]));
 
@@ -42,7 +42,7 @@ router.post('/', bodyVerificator, (req, res, next) => {
         return next(new APIError(406, 'Not valid type for asked ressource'));
     }
 
-    UserService.findOneByQuery({username: req.body.username})
+    UserService.findOneByQuery({email: req.body.email})
      .then(user => {
         if (user) {
             return Promise.reject(new APIError(409, 'Existing user'));
