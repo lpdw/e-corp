@@ -22,15 +22,54 @@ produces:
   - application/json
   - text/html
 paths:
-  /compte:
+  /user/{id}:
+    get:
+      description: information d'un utilisateur
+
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: id du user 
+          type: integer
+          format: int32
+      responses:
+        '200':
+          description: reponse user
+          schema:
+            $ref: '#/definitions/user'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    post:
+      description: creer un nouveau user
+      operationId: addUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: user a ajouter
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: reponse user
+          schema:
+            $ref: '#/definitions/user'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+  /compte/{id}:
     get:
       description: information d'un compte utilisateur
 
       parameters:
         - name: id
-          in: query
-          description: id du compte (Compte courant/ clé primaire)
+          in: path
           required: true
+          description: id du compte (Compte courant/ clé primaire)
           type: integer
           format: int32
       responses:
@@ -46,12 +85,12 @@ paths:
       description: creer un nouveau compte dans la banque
       operationId: addCompte
       parameters:
-        - name: compte
-          in: body
+        - name: id
+          in: path
+          required: true
           description: compte a ajouter
-          required: false
-          schema:
-            $ref: '#/definitions/compte'
+          type: integer
+          format: int64
       responses:
         '200':
           description: reponse compte
@@ -61,22 +100,22 @@ paths:
           description: unexpected error
           schema:
             $ref: '#/definitions/errorModel'
-  /compte/transactions:
+  /transaction/{id}:
     get:
       description: retourne les transactions effectuées sous ce compte
       operationId: findCompteById
       parameters:
         - name: id
           in: path
-          description: ID of pet to fetch
           required: true
+          description: ID of transaction to fetch
           type: integer
           format: int64
       responses:
         '200':
-          description: pet response
+          description: transaction response
           schema:
-            $ref: '#/definitions/compte'
+            $ref: '#/definitions/transaction'
         default:
           description: unexpected error
           schema:
@@ -87,18 +126,76 @@ paths:
       parameters:
         - name: id
           in: path
-          description: ID du compte a supprimer
           required: true
+          description: ID de la transaction a supprimer
           type: integer
           format: int64
       responses:
         '204':
-          description: suppression compte
+          description: suppression de la transaction 
         default:
           description: unexpected error
           schema:
             $ref: '#/definitions/errorModel'
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
 definitions:
+  user:
+    type: object
+    required:
+      - id
+      - nom
+      - typeUser
+      - password
+    properties:
+      id:
+        type: integer
+        format: int64
+      nom:
+        type: string
+      typeUser:
+        type: string
+      password:
+        type: string
+  transaction:
+    type: object
+    required:
+      - id
+      - date
+      - typeTransaction
+      - status
+      - noCompteEmetteur
+      - noCompteRecepteur
+      - message
+      - totalPaiement
+    properties:
+      id:
+        type: integer
+        format: int64
+      date:
+        type: string
+        format: date
+      typeTransaction:
+        type: string
+      status:
+        type: boolean
+      noCompteEmetteur:
+        type: string
+      noCompteRecepteur:
+        type: string
+      message:
+        type: string
+      totalPaiement:
+        type: number
+        format: float
   compte:
     type: object
     required:
