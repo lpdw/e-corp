@@ -2,17 +2,48 @@
 
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Users', {
-        username: {
+        typeofAccount: {
+            type: DataTypes.INTEGER,
+            validate: {
+                notEmpty: {
+                    msg: "-> Missing type of usr"
+                }
+            }
+        },
+        company: {
             type: DataTypes.STRING,
-            validate: {notEmpty: {msg: "-> Missing username"}}
+        },
+        firstname: {
+            type: DataTypes.STRING,
+            validate: {
+                notEmpty: {
+                    msg: "-> Missing firstname"
+                }
+            }
+        },
+        lastname: {
+            type: DataTypes.STRING,
+            validate: {
+                notEmpty: {
+                    msg: "-> Missing lastname"
+                }
+            }
+        },
+        email: {
+            type: DataTypes.STRING,
+            validate: {
+                notEmpty: {
+                    msg: "-> Missing email"
+                }
+            }
         },
         password: {
             type: DataTypes.STRING,
-            validate: {notEmpty: {msg: "-> Missing password"}}
-        },
-        displayName: {
-            type: DataTypes.STRING,
-            validate: {notEmpty: {msg: "-> Missing displayName"}}
+            validate: {
+                notEmpty: {
+                    msg: "-> Missing password"
+                }
+            }
         }
     });
 };
