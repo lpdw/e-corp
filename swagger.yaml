@@ -61,7 +61,7 @@ paths:
           description: unexpected error
           schema:
             $ref: '#/definitions/errorModel'
-  /compte/{id}:
+  /account/{id}:
     get:
       description: information d'un compte utilisateur
       parameters:
@@ -75,7 +75,7 @@ paths:
         '200':
           description: reponse compte
           schema:
-            $ref: '#/definitions/compte'
+            $ref: '#/definitions/account'
         default:
           description: unexpected error
           schema:
@@ -94,7 +94,7 @@ paths:
         '200':
           description: reponse compte
           schema:
-            $ref: '#/definitions/compte'
+            $ref: '#/definitions/account'
         default:
           description: unexpected error
           schema:
@@ -120,24 +120,6 @@ paths:
           description: unexpected error
           schema:
             $ref: '#/definitions/errorModel'
-    delete:
-      description: suprimmer un compte
-      operationId: deleteCompte
-      parameters:
-        - name: id
-          in: path
-          required: true
-          description: ID de la transaction a supprimer
-          type: integer
-          format: int64
-      responses:
-        '204':
-          description: suppression de la transaction 
-        default:
-          description: unexpected error
-          schema:
-            $ref: '#/definitions/errorModel'
-            
             
             
             
@@ -155,6 +137,9 @@ definitions:
       - nom
       - typeUser
       - password
+      - email
+      - token
+      - accountNB
     properties:
       id:
         type: integer
@@ -165,6 +150,14 @@ definitions:
         type: string
       password:
         type: string
+      email:
+        type: string
+      token:
+        type: string
+        format: string8
+      accountNB:
+        type: string
+        format: string12
   transaction:
     type: object
     required:
@@ -196,7 +189,7 @@ definitions:
       montant:
         type: number
         format: float
-  compte:
+  account:
     type: object
     required:
       - id
