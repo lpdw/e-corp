@@ -134,17 +134,19 @@ definitions:
     type: object
     required:
       - id
-      - nom
+      - firstname
+      - lastname
       - typeUser
       - password
       - email
-      - token
-      - accountNB
+      - company
     properties:
       id:
         type: integer
         format: int64
-      nom:
+      firstname:
+        type: string
+      lastname:
         type: string
       typeUser:
         type: string
@@ -152,52 +154,58 @@ definitions:
         type: string
       email:
         type: string
-      token:
+      company:
         type: string
-        format: string8
-      accountNB:
-        type: string
-        format: string12
   transaction:
     type: object
     required:
       - id
-      - date
-      - typeTransaction
+      - created_at
+      - modified_at
+      - type
       - status
-      - noCompteEmetteur
-      - noCompteRecepteur
+      - payer
+      - beneficiary
       - message
       - montant
     properties:
       id:
         type: integer
         format: int64
-      date:
+      created_at:
         type: string
         format: date
-      typeTransaction:
+      modified_at:
+        type: string
+        format: date
+      type:
         type: string
       status:
         type: boolean
-      noCompteEmetteur:
+      payer:
         type: string
-      noCompteRecepteur:
+      beneficiary:
         type: string
       message:
         type: string
       montant:
         type: number
         format: float
+      amount:
+        type: integer
+        format: double
   account:
     type: object
     required:
       - id
       - name
       - noCompte
-      - solde
-      - dateCreation
+      - credit
+      - created_at
+      - modified_at
       - transactions
+      - token
+      - account_nb
     properties:
       id:
         type: integer
@@ -207,14 +215,23 @@ definitions:
       noCompte:
         type: integer
         format: int64
-      solde:
+      credit:
         type: number
         format: float
-      dateCreation:
+      created_at:
+        type: string
+        format: date
+      modified_at:
         type: string
         format: date
       transactions:
         type: object
+      token:
+        type: string
+        format: string8
+      account_nb:
+        type: string
+        format: string12
   errorModel:
     type: object
     required:
