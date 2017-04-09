@@ -35,7 +35,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 var sess = {
-    secret: 'social-music-api',
+    secret: 'e-corp-api',
     cookie: {},
     resave: false,
     saveUninitialized: true
@@ -44,7 +44,7 @@ app.use(session(sess));
 app.use(methodOverride('_method'));
 
 app.use((req, res, next) => {
-    if (!req.accepts('text/html') && !req.accepts('application/json')) {
+    if (!req.accepts('text/html') || !req.accepts('application/json')) {
         return next(new APIError(406, 'Not valid type for asked resource'));
     }
     next();

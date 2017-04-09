@@ -47,6 +47,7 @@ module.exports = (sequelize, DataTypes) => {
               notEmpty: {
                   msg: "-> Missing modified at"
               }
-          }        }
+          }
+        }
     });
 };

@@ -23,7 +23,7 @@ const bodyVerificator = (req, res, next) => {
     const missingAttributes = _.difference(mandatoryAttributes, attributes);
     const emptyAttributes = _.filter(mandatoryAttributes, key => _.isEmpty(req.body[key]));
 
-    let error = null;
+    var error = null;
     if (missingAttributes.length) {
         error = new APIError(400, 'Missing mandatory data :' + missingAttributes.toString());
     }
@@ -38,7 +38,7 @@ const bodyVerificator = (req, res, next) => {
 };
 
 router.post('/', bodyVerificator, (req, res, next) => {
-    if (!req.accepts('application/json') && !req.accepts('text/html')) {
+    if (!req.accepts('application/json') || !req.accepts('text/html')) {
         return next(new APIError(406, 'Not valid type for asked ressource'));
     }
 
