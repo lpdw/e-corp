@@ -1,3 +1,7 @@
 <% include partials/header %>
    <h1><%=title%></h1>
+
+   <% if (userLogged) { %>
+   <li><a href="/transactions/add">Effectuer un virement/remboursement</a></li>
+   <%}%>
 <% include partials/footer %>

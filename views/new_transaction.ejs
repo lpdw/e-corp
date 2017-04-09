@@ -1,0 +1,24 @@
+<% include partials/header %>
+<h1>Effectuer un virement/remboursement</h1> <hr/>
+<form method="post" action="/transactions">
+  <select name="type">
+    <option value="1">
+      Virement
+    </option>
+    <option value="2">
+      Remboursement
+    </option>
+  </select>
+  <input type="hidden" name="payer" value="<%= account.account_nb%>" />
+  <input type="hidden" name="status" value="2" />
+
+  <input type="text" name="amount" required pattern="[0-0+(\.[0-9]{0,2})]" placeholder="Montant" title="Le montant doit être de la forme 10.00" />
+  <input type="text" name="message" placeholder="Message" />
+
+  <input type="text" name="beneficiary" required placeholder="n° compte bénéficiaire" />
+  <input type="password" name="token" required placeholder="Token de sécurité pour éffectuer le virement" />
+
+  <input type="submit" value="Effectuer la transaction" />
+</form>
+
+<% include partials/footer %>

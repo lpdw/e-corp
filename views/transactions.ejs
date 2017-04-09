@@ -1,0 +1,61 @@
+<% include partials/header %>
+
+<table>
+
+<thead>
+  <th>
+    <td>
+      Payeur
+    </td>
+    <td>
+      Bénéficiaire
+    </td>
+    <td>
+      Type
+    </td>
+    <td>
+      Status
+    </td>
+    <td>
+      Montant
+    </td>
+    <td>
+      Date de création
+    </td>
+    <td>
+
+    </td>
+  </th>
+</thead>
+<tbody>
+
+
+<% transactions.forEach(function(transaction){%>
+  <tr>
+    <td>
+      <%= transaction.payer%>
+    </td>
+    <td>
+      <%= transaction.beneficiary%>
+    </td>
+    <td>
+      <%= transaction.type%>
+    </td>
+    <td>
+      <%= transaction.status%>
+    </td>
+    <td>
+      <%= transaction.credit%>
+    </td>
+    <td>
+      <%= transaction.createdAt%>
+    </td>
+    <td>
+      <a href="/transactions/<%=transaction.id%>">Détails</a>
+
+    </td>
+  </tr>
+<%});%>
+</tbody>
+</table>
+<% include partials/footer %>

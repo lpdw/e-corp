@@ -18,3 +18,56 @@ exports.createAccount = account => {
         })
     ;
 };
+exports.findOneByUser = (user) => {
+    return db.Accounts.findOne({
+       where: {
+         UserId: user.id
+       }
+    });
+};
+
+
+exports.debitAccount = (account,amount) => {
+  return db.Accounts.update(
+  {
+      credit: account.credit-amount
+  },
+  { where:{
+    id: account._id
+
+  }
+});
+}
+exports.creditAccount = (account,amount) => {
+  return db.Accounts.update(
+  {
+      credit: account.credit+amount
+  },
+  { where:{
+    id: account._id
+
+  }
+});
+}
+exports.isPayerExist = (payer,token) => {
+  return db.Accounts.count({
+    where:{
+      account_nb : payer,
+      token : token
+    }
+  });
+}
+exports.isBeneficiaryExist = (beneficiary) => {
+  return db.Accounts.count({
+    where:{
+      account_nb : beneficiary
+    }
+  });
+}
+exports.findAccountByNumber = (account_number) => {
+    return db.Accounts.findOne({
+        where: {
+            account_nb: account_number
+        }
+    })
+}

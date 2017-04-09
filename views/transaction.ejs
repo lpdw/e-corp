@@ -1,0 +1,14 @@
+<% include partials/header %>
+
+Payeur :<%=transaction.payer%>
+Bénéficiaire :<%= transaction.beneficiary%>
+Type :<%= transaction.type%>
+
+Status : <%= transaction.status%>
+
+Montant :<%= transaction.credit%>
+Message : <%= transaction.message%>
+
+Créée le : <%= transaction.createdAt%>
+Modifiée le :<%= transaction.modifiedAt%>
+<% include partials/footer %>
