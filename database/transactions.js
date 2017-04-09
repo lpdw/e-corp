@@ -44,20 +44,6 @@ module.exports = (sequelize, DataTypes) => {
                 }
             }
         },
-        created_at: {
-            type: DataTypes.DATE,
-            validate: {
-                notEmpty: {
-                    msg: "-> Missing created at "
-                }
-            }
-        },
-        modified_at: {
-          type: DataTypes.DATE,
-          validate: {
-              notEmpty: {
-                  msg: "-> Missing modified at"
-              }
-          }        }
+
     });
 };

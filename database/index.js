@@ -33,7 +33,7 @@ const Users = sequelize.import(path.join(__dirname, 'users'));
 const Accounts = sequelize.import(path.join(__dirname, 'accounts'));
 const Transactions = sequelize.import(path.join(__dirname, 'transactions'));
 // Définition de la relation One to one Account/User
-Accounts.belongsTo(Users);
+Accounts.belongsTo(Users,{as :'user'});
 Users.hasMany(Transactions, {
     as: 'Payer',
     foreignKey: 'payer'
