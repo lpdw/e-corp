@@ -1,0 +1,19 @@
+<% include partials/header %>
+<main class="main-content">
+  <div class="hero">
+    <div class="container">
+        <h2>Ajouter de l'argent sur le compte</h2>
+      <div class="row">
+<%if (err) {%>
+    <div style="color:red"><%=err%></div>
+<%} %>
+<p>
+  Vous possédez actuellement <%=account.credit%> €
+</p>
+<form class="form-horizontal" action="/users/account/<%=account.id%>?_method=PUT" method="post">
+  <input type="number" name="amount" placeholder="Somme" value="" />
+  <input type="submit" value="Ajouter de l'argent" />
+</form>
+</div>
+</main>
+<% include partials/footer %>

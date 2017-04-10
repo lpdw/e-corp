@@ -42,6 +42,21 @@ exports.creditAccount = (account, amount) => {
         }
     });
 }
+exports.creditAccountByID = (accountID, amount) => {
+    return db.Accounts.findById(accountID).then(
+      account => {
+        return db.Accounts.update({
+            credit: parseFloat(account.credit) + parseFloat(amount)
+        }, {
+            where: {
+                id: accountID
+
+            }
+        });
+      }
+    )
+
+}
 exports.isPayerExist = (payer, token) => {
     return db.Accounts.findOne({
         where: {
