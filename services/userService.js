@@ -18,12 +18,8 @@ exports.createUser = user => {
            // Génération du numéro de compte et du token
            var accountNB=uid.sync(12);
            var token = uid.sync(8);
-           // Une fois l'utilisateur enregistré, on lui créé un compte bancaire
-           const account = db.Accounts.build({credit:150,account_nb:accountNB,token:token});
-
-           // On associe le compte à l'utilisateur crée
-           model.setAccount(account);
-           account.save();
+           // Une fois l'utilisateur enregistré, on lui créé un compte bancaire associé
+           const account = db.Accounts.build({credit:150,account_nb:accountNB,token:token,UserId:model._id});
             return model.save();
         })
     ;
