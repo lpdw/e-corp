@@ -1,37 +1,23 @@
 <% include partials/header %>
-
-    <table>
-
+<main class="main-content">
+  <div class="hero">
+    <div class="container">
+      <h2>Consultation à vue
+        <br> de <%= user.firstname%>
+              <%= user.lastname%></h2>
+      <a href="/transactions/add" class="button" style="float:right;margin-bottom:41px;">Effectuer un virement</a>
+      <div class="row">
+      <table class="table table-bordered table-hover" id="myTable" style="margin-top:12px;">
         <thead>
             <tr>
-              <th>
-                id
-              </th>
-                <th>
-                    Payeur
-                </th>
-                <th>
-                    Bénéficiaire
-                </th>
-                <th>
-                    Type
-                </th>
-                <th>
-                    Status
-                </th>
-                <th>
-                    Montant
-                </th>
-                <th>
-                    Date de création
-                </th>
-                <th>
-
-                </th>
+                <th>Payeur</th>
+                <th>Bénéficiare</th>
+                <th>Type</th>
+                <th>Montant</th>
+                <th>Date création</th>
             </tr>
         </thead>
         <tbody>
-
 
             <% transactions.forEach(function(transaction){ %>
                 <tr>
@@ -49,4 +35,8 @@
                 <% });%>
         </tbody>
     </table>
+  </div>
+</div>
+</div>
+</main> <!-- .main-content -->
     <% include partials/footer %>

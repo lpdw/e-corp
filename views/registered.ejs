@@ -1,8 +1,15 @@
 <% include partials/header %>
-   <h1>Compte créé pour <%=user.firstname%> <%=user.lastname%></h1>
-   <p>
-     150€ ont été ajouté sur votre compte comme offre de bienvenue !
-   </p>
+<main class="main-content">
+  <div class="hero">
+    <div class="container">
+      <div class="row">
+       <h1>Compte créé pour <%=user.firstname%> <%=user.lastname%></h1>
+       <p>
+         150€ ont été ajouté sur votre compte comme offre de bienvenue !
+       </p>
    <hr/>
    <a href='/login'>Se connecter</a>
+ </div>
+</div>
+</main>
 <% include partials/footer %>

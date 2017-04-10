@@ -1,14 +1,20 @@
 <% include partials/header %>
+<main class="main-content">
+  <div class="hero">
+    <div class="container">
+      <div class="row">
+        Payeur :<%=transaction.payer%>
+        Bénéficiaire :<%= transaction.beneficiary%>
+        Type :<%= transaction.type%>
 
-Payeur :<%=transaction.payer%>
-Bénéficiaire :<%= transaction.beneficiary%>
-Type :<%= transaction.type%>
+        Status : <%= transaction.status%>
 
-Status : <%= transaction.status%>
+        Montant :<%= transaction.amount%>
+        Message : <%= transaction.message%>
 
-Montant :<%= transaction.amount%>
-Message : <%= transaction.message%>
-
-Créée le : <%= transaction.createdAt%>
-Modifiée le :<%= transaction.modifiedAt%>
-<% include partials/footer %>
+        Créée le : <%= transaction.createdAt%>
+        Modifiée le :<%= transaction.modifiedAt%>
+        <% include partials/footer %>
+      </div>
+    </div>
+  </main>

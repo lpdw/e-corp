@@ -1,7 +1,14 @@
 <% include partials/header %>
-   <h1><%=title%></h1>
+   <main class="main-content">
+     <div class="hero">
+       <div class="container">
+         <div class="row">
+             <h2 class="hero-title">Bienvenue sur E-CORP</h2>
+             <p>Offre de bienvenue jusqu'à 150 €offerts</p>
+          </div>
+         </div>
+       </div>
+     </div>
+   </main> <!-- .main-content -->
 
-   <% if (userLogged) { %>
-   <li><a href="/transactions/add">Effectuer un virement/remboursement</a></li>
-   <%}%>
 <% include partials/footer %>
