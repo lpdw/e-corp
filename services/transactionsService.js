@@ -3,39 +3,47 @@ const db = require('../database');
 exports.findAll = (user) => {
     return db.Transactions.findAll({
         where: {
-            $or: [{
-                    payer: user
-                },
+            $or: [
                 {
+                    payer: user
+                }, {
                     beneficiary: user
                 }
             ]
         },
-include: [{ all: true, nested: true }]
+        include: [
+            {
+                all: true,
+                nested: true
+            }
+        ]
     });
 };
 exports.create = (transaction, payer, beneficiary) => {
     const model = db.Transactions.build(transaction);
-    return model.validate()
-        .then(err => {
-            if (err) {
-                return Promise.reject(err);
-            }
-            // Si la transaction est correctement créée on l'associe aux comptes payeur/bénéficiaire
-            console.log("TRANSACTION :"+model);
-            console.log("PAYER "+payer);
-            console.log("BENEFICIAIRE "+beneficiary);
-            // On associe le compte à l'utilisateur crée
-            model.setPayer(payer);
-            model.setBeneficiary(beneficiary);
-            return model.save();
-        });
+    return model.validate().then(err => {
+        if (err) {
+            return Promise.reject(err);
+        }
+
+        return model.save();
+    });
+};
+
+// Modification d'une transaction (uniquement son status)
+exports.update = (transaction, id) => {
+    return db.Transactions.update({
+        status: transaction.status
+    }, {
+        where: {
+            id: id
+
+        }
+    });
 };
 exports.findById = (id) => {
     return db.Transactions.findById(id);
 };
 exports.findOneByQuery = query => {
-    return db.Transactions.findOne({
-        where: query
-    });
+    return db.Transactions.findOne({where: query});
 };

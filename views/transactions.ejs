@@ -4,6 +4,9 @@
 
         <thead>
             <tr>
+              <th>
+                id
+              </th>
                 <th>
                     Payeur
                 </th>
@@ -32,6 +35,9 @@
 
             <% transactions.forEach(function(transaction){ %>
                 <tr>
+                    <td>
+                    <%= transaction.id %>
+                    </td>
                     <td><%if (transaction.payer==user.id) {%> Moi <%}else{%> <%= transaction.payer %><%}%></td>
                     <td><%if (transaction.beneficiary==user.id) {%> Moi <%}else{ if(transaction.beneficiary){%> <%= transaction.beneficiary.account_nb %><%}}%></td>
                     <td><%= transaction.type%></td>

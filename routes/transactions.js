@@ -4,7 +4,7 @@ const TransactionsService = require('../services/transactionsService');
 const AccountsService = require('../services/accountsService');
 const _ = require("lodash");
 
-/* GET all current user transactions page. */
+/* Récupère toutes les transactions de l'utilisateur en cours */
 router.get('/', function(req, res, next) {
     // Current logged user
     const user = req.user;
@@ -18,7 +18,7 @@ router.get('/', function(req, res, next) {
         }
     });
 });
-
+/* Récupère le formulaire de nouvelle transaction*/
 router.get('/add', (req, res) => {
     if (!req.accepts('text/html')) {
         return res.statut(404).send({err: "Not valid type for asked ressource"});
@@ -35,6 +35,7 @@ router.get('/add', (req, res) => {
         });
     }
 });
+/* Récupère le détail d'une transaction via son id */
 router.get('/:id', (req, res) => {
     if (!req.accepts('text/html') && !req.accepts('application/json')) {
         return res.status(406).send({err: 'Not valid type for asked resource'});
@@ -51,6 +52,51 @@ router.get('/:id', (req, res) => {
         }
     });
 
+});
+
+/* Modifier une transaction */
+router.put('/:id', (req, res) => {
+  if (!req.accepts('text/html') || !req.accepts('application/json')) {
+      return res.status(406).send({err: 'Not valid type for asked resource'});
+  }
+    return TransactionsService.update(req.body, req.params.id)
+        .then(transaction => {
+          // En cas d'annulation de la transaction on annule le débitage du payeur
+          if(req.body.status==0){
+            TransactionsService.findById(req.params.id).then( transaction => {
+              // On récupère le payeur
+              transaction.getPayer().then( payer => {
+                AccountsService.creditAccount(payer, transaction.amount);
+                if (req.is('text/html')) {
+                return res.redirect(req.params.id);
+                }
+                if (req.is('application/json')) {
+                    return res.status(200).send(JSON.stringify({status:1}));
+                }
+              });
+
+            });
+          }else if(req.body.status==2){
+            TransactionsService.findById(req.params.id).then( transaction => {
+              // En cas de validation de la transaction on credite le destinataire
+              // On récupère le bénéficiaire
+              transaction.getBeneficiary().then( beneficiary => {
+              AccountsService.creditAccount(beneficiary, transaction.amount);
+              if (req.is('text/html')) {
+                return res.redirect(req.params.id);
+              }
+              if (req.is('application/json')) {
+                  return res.status(200).send(JSON.stringify({status:1}));
+              }
+            });
+
+          });
+        }
+
+        })
+        .catch(err => {
+            res.status(500).send(err);
+        });
 });
 
 // Validation des données du formulaires de création d'une transaction
@@ -98,7 +144,11 @@ router.post('/', bodyVerificator, (req, res, next) => {
                 type: req.body.type,
                 message: req.body.message,
                 status: req.body.status
-            }, payer_account, beneficiary_account).then(transaction => {
+            }).then(transaction => {
+              // Si la transaction est correctement créée on l'associe aux comptes payeur/bénéficiaire
+              transaction.setPayer(payer_account);
+              transaction.setBeneficiary(beneficiary_account);
+
                 // Si la transaction est créée, selon son status on effectue le transfert de l'argent
                 if (req.body.status == 1) {
                     AccountsService.debitAccount(payer_account, req.body.amount);
