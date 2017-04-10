@@ -3,8 +3,10 @@ const _ = require('lodash');
 const bcrypt = require('bcrypt');
 const router = express.Router();
 const UserService = require('../services/userService');
+const AccountsService = require('../services/accountsService');
+
 const APIError = require('../lib/apiError');
-const uid = require('uid-safe')
+const uid = require('uid-safe');
 router.get('/', (req, res, next) => {
    const err = (req.session.err) ? req.session.err : null;
    if (req.accepts('text/html')) {
@@ -55,10 +57,26 @@ router.post('/', bodyVerificator, (req, res, next) => {
         return UserService.createUser(req.body);
      })
      .then(user => {
-        if (req.accepts('text/html')) {
-            return res.render('registered', {user: _.omit(user.dataValues, 'password')});
-        }
-        return res.status(200).send(_.omit(user.dataValues, 'password'));
+       // Génération du numéro de compte et du token
+       var accountNB=uid.sync(12);
+       var token = uid.sync(8);
+       AccountsService.createAccount({credit:150,account_nb:accountNB,token:token}).then(
+         account => {
+           // On associe le compte à l'utilisateur tout juste créé
+           user.setAccount(account);
+           if (req.accepts('text/html')) {
+               return res.render('registered', {user: _.omit(user.dataValues, 'password')});
+           }
+           return res.status(200).send(_.omit(user.dataValues, 'password'));
+         }
+       ).catch(error => {
+          if (req.accepts('text/html')) {
+              req.session.err = error.message;
+              return res.redirect('/signup');
+          } else {
+              return next(error);
+          }
+       });
      })
      .catch(error => {
         if (req.accepts('text/html')) {

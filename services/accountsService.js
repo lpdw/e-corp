@@ -6,7 +6,7 @@ exports.findOneByQuery = query => {
 };
 
 exports.createAccount = account => {
-    const model = db.Account.build(account);
+    const model = db.Accounts.build(account);
     return model.validate().then(err => {
         if (err) {
             return Promise.reject(err);
