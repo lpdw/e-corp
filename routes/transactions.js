@@ -71,7 +71,7 @@ router.put('/:id', (req, res) => {
                 return res.redirect(req.params.id);
                 }
                 if (req.is('application/json')) {
-                    return res.status(200).send(JSON.stringify({status:1}));
+                    return res.status(200).send({status:1});
                 }
               });
 
@@ -86,7 +86,7 @@ router.put('/:id', (req, res) => {
                 return res.redirect(req.params.id);
               }
               if (req.is('application/json')) {
-                  return res.status(200).send(JSON.stringify({status:1}));
+                  return res.status(200).send({status:1});
               }
             });
 
@@ -132,7 +132,7 @@ const bodyVerificator = (req, res, next) => {
     return next(error);
 };
 router.post('/', bodyVerificator, (req, res, next) => {
-    if (!req.accepts('application/json') || !req.accepts('text/html')) {
+    if (!(req.accepts('application/json') || req.accepts('text/html'))) {
         return next(new APIError(406, 'Not valid type for asked ressource'));
     }
     //1. On vérifie l'existence des comptes et le token
