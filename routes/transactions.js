@@ -37,7 +37,7 @@ router.get('/add', (req, res) => {
 });
 /* Récupère le détail d'une transaction via son id */
 router.get('/:id', (req, res) => {
-    if (!req.accepts('text/html') && !req.accepts('application/json')) {
+    if (!req.accepts('text/html') || !req.accepts('application/json')) {
         return res.status(406).send({err: 'Not valid type for asked resource'});
     }
     TransactionsService.findById(req.params.id).then(transaction => {
@@ -132,7 +132,7 @@ const bodyVerificator = (req, res, next) => {
     return next(error);
 };
 router.post('/', bodyVerificator, (req, res, next) => {
-    if (!req.accepts('application/json') && !req.accepts('text/html')) {
+    if (!req.accepts('application/json') || !req.accepts('text/html')) {
         return next(new APIError(406, 'Not valid type for asked ressource'));
     }
     //1. On vérifie l'existence des comptes et le token
@@ -163,7 +163,7 @@ router.post('/', bodyVerificator, (req, res, next) => {
                     return res.redirect('transactions');
                 }
                 if (req.is('application/json')) {
-                    return res.status(200).send(JSON.stringify({statut: 1, transaction_id: transaction.id}));
+                    return res.status(200).send({statut: 1, transaction_id: transaction.id});
                 }
             }).catch(err => {
                 console.log(err);
@@ -175,7 +175,7 @@ router.post('/', bodyVerificator, (req, res, next) => {
                 return res.redirect('transactions');
             }
             if (req.is('application/json')) {
-                return res.status(403).send(JSON.stringify({statut: 2, err:"Il n'y a pas assez d'argent sur le compte."}));
+                return res.status(403).send({statut: 2, err:"Il n'y a pas assez d'argent sur le compte."});
             }
           }
 
