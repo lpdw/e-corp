@@ -1,5 +1,7 @@
 'use strict'
 const db = require('../database');
+const uid = require('uid-safe');
+
 exports.findOneByQuery = query => {
     return db.Users.findOne({
        where: query
