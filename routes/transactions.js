@@ -56,7 +56,7 @@ router.get('/:id', (req, res) => {
 // Validation des données du formulaires de création d'une transaction
 
 const bodyVerificator = (req, res, next) => {
-    if (req.body.beneficiary && req.body.payer && req.body.token && req.body.amount && req.body.message && req.body.type) {
+    if (req.body.beneficiary && req.body.payer && req.body.token && req.body.amount && req.body.type) {
         return next();
     }
     const attributes = _.keys(req.body);
@@ -65,6 +65,7 @@ const bodyVerificator = (req, res, next) => {
         'token',
         'beneficiary',
         'amount',
+        'message',
         'status',
         'type'
     ];
@@ -85,7 +86,7 @@ const bodyVerificator = (req, res, next) => {
     return next(error);
 };
 router.post('/', bodyVerificator, (req, res, next) => {
-    if (!req.accepts('application/json') && !req.accepts('text/html')) {
+    if (!req.accepts('application/json') || !req.accepts('text/html')) {
         return next(new APIError(406, 'Not valid type for asked ressource'));
     }
     //1. On vérifie l'existence des comptes et le token
@@ -105,11 +106,11 @@ router.post('/', bodyVerificator, (req, res, next) => {
                     AccountsService.debitAccount(payer_account, req.body.amount);
                     AccountsService.creditAccount(beneficiary_account, req.body.amount);
                 }
-                if (req.accepts('text/html')) {
+                if (req.is('application/x-www-form-urlencoded')) {
                     return res.redirect('transactions/' + transaction.id);
                 }
-                if (req.accepts('application/json')) {
-                    return res.setHeader('Content-Type', 'application/json').status(200).send(JSON.stringify({statut: 1, transaction_id: transaction_id}));
+                if (req.is('application/json')) {
+                    return res.status(200).send(JSON.stringify({statut: 1, transaction_id: transaction.id}));
                 }
             }).catch(err => {
                 console.log(err);

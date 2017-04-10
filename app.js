@@ -65,7 +65,7 @@ app.use(passport.session());
 
 const verifyAuth = (req, res, next) => {
    res.locals.userLogged = false;
-   if (req.originalUrl === '/signup' || req.originalUrl === '/login' || req.originalUrl ==="/transactions") {
+   if (req.originalUrl === '/signup' || req.originalUrl === '/login') {
        return next();
    }
    if (req.get('authorization') === 'lpdw-2016') {
