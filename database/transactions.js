@@ -1,22 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Transactions', {
-        payer: {
-            type: DataTypes.UUID,
-            validate: {
-                notEmpty: {
-                    msg: "-> Missing payer account number "
-                }
-            }
-        },
-        beneficiary: {
-            type: DataTypes.UUID,
-            validate: {
-                notEmpty: {
-                    msg: "-> Missing beneficiary account number "
-                }
-            }
-        },
         amount:{
           type: DataTypes.DOUBLE,
           validate: {
@@ -44,20 +28,6 @@ module.exports = (sequelize, DataTypes) => {
                 }
             }
         },
-        created_at: {
-            type: DataTypes.DATE,
-            validate: {
-                notEmpty: {
-                    msg: "-> Missing created at "
-                }
-            }
-        },
-        modified_at: {
-          type: DataTypes.DATE,
-          validate: {
-              notEmpty: {
-                  msg: "-> Missing modified at"
-              }
-          }        }
+
     });
 };

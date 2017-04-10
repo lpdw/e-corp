@@ -1,14 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Accounts', {
-       user_id:{
-         type: DataTypes.INTEGER,
-         validate: {
-             notEmpty: {
-                 msg: "-> Missing user id "
-             }
-         }
-       },
         account_nb: {
             type: DataTypes.UUID,
             validate: {
@@ -32,22 +24,6 @@ module.exports = (sequelize, DataTypes) => {
                     msg: "-> Missing credit"
                 }
             }
-        },
-        created_at: {
-            type: DataTypes.DATE,
-            validate: {
-                notEmpty: {
-                    msg: "-> Missing created at "
-                }
-            }
-        },
-        modified_at: {
-          type: DataTypes.DATE,
-          validate: {
-              notEmpty: {
-                  msg: "-> Missing modified at"
-              }
-          }
         }
     });
 };

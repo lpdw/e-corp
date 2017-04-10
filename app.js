@@ -14,7 +14,7 @@ var users = require('./routes/users');
 var signup = require('./routes/signup');
 var login = require('./routes/login');
 var logout = require('./routes/logout');
-var myaccount = require('./routes/myaccount');
+var transactions = require('./routes/transactions');
 
 var passport = require('passport');
 var authentication = require('./services/authentication');
@@ -65,7 +65,7 @@ app.use(passport.session());
 
 const verifyAuth = (req, res, next) => {
    res.locals.userLogged = false;
-   if (req.originalUrl === '/signup' || req.originalUrl === '/login') {
+   if (req.originalUrl === '/signup' || req.originalUrl === '/login' || req.originalUrl ==="/transactions") {
        return next();
    }
    if (req.get('authorization') === 'lpdw-2016') {
@@ -91,7 +91,7 @@ app.use('/users', users);
 app.use('/signup', signup);
 app.use('/login', login);
 app.use('/logout', logout);
-app.use('/myaccount', myaccount);
+app.use('/transactions', transactions);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
