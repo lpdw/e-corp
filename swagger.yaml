@@ -61,6 +61,44 @@ paths:
           description: unexpected error
           schema:
             $ref: '#/definitions/errorModel'
+    put:
+      description: mettre à jour un user
+      operationId: updateUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: user a modifier
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: reponse user
+          schema:
+            $ref: '#/definitions/user'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    delete:
+      description: supprimer un utilisateur
+      operationId: deleteUser
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: user a supprimer
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: reponse user
+          schema:
+            $ref: '#/definitions/user'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
   /account/{id}:
     get:
       description: information d'un compte utilisateur
@@ -103,7 +141,64 @@ paths:
   /transaction/{id}:
     get:
       description: retourne les transactions effectuées sous ce compte
-      operationId: findCompteById
+      operationId: findTransactionById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of transaction to fetch
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: transaction response
+          schema:
+            $ref: '#/definitions/transaction'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    post:
+      description: post les transactions effectuées sous ce compte
+      operationId: postTransactionById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of transaction to fetch
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: transaction response
+          schema:
+            $ref: '#/definitions/transaction'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    put:
+      description: update les transactions effectuées sous ce compte
+      operationId: updateTransactionById
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of transaction to fetch
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: transaction response
+          schema:
+            $ref: '#/definitions/transaction'
+        default:
+          description: unexpected error
+          schema:
+            $ref: '#/definitions/errorModel'
+    delete:
+      description: delete les transactions effectuées sous ce compte
+      operationId: deleteTransactionById
       parameters:
         - name: id
           in: path
