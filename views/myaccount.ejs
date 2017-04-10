@@ -51,7 +51,7 @@
           		    <img src="http://www.datchme.com/images/avatar_blank.png?version=1.61" style="height:100px;" class="img-circle">
                   </div>
                   <div class="span8">
-                      <h3> <%if(user.type==2){%><%= user.firstname%><%} <%= user.firstname%> <%= user.lastname%></h3>
+                      <h3> <% if(user.type==2){%><%= user.firstname%><%}%> <%= user.firstname%> <%= user.lastname%></h3>
                       <h6>Numéro du compte: <b><%= account.account_nb %></b> </h6>
                       <h6>Solde du compte: <b><%= account.credit %> €</b></h6>
                       <h6>Token: <b><%=account.token%></b></h6>

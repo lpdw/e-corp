@@ -138,7 +138,10 @@ router.post('/', bodyVerificator, (req, res, next) => {
     //1. On vérifie l'existence des comptes et le token
     AccountsService.isPayerExist(req.body.payer, req.body.token).then(payer_account => {
         AccountsService.isBeneficiaryExist(req.body.beneficiary).then(beneficiary_account => {
-            //Si deux comptes existent on effectue la transaction
+          //Si deux comptes existent on vérifie que payer a assez d'argent
+
+          if(payer_account.credit>=req.body.amount){
+            // Si oui on effectue la transaction
             TransactionsService.create({
                 amount: req.body.amount,
                 type: req.body.type,
@@ -157,7 +160,7 @@ router.post('/', bodyVerificator, (req, res, next) => {
                     AccountsService.creditAccount(beneficiary_account, req.body.amount);
                 }
                 if (req.is('application/x-www-form-urlencoded')) {
-                    return res.redirect('transactions/' + transaction.id);
+                    return res.redirect('transactions');
                 }
                 if (req.is('application/json')) {
                     return res.status(200).send(JSON.stringify({statut: 1, transaction_id: transaction.id}));
@@ -167,6 +170,15 @@ router.post('/', bodyVerificator, (req, res, next) => {
                 next(err);
 
             });
+          }else{
+            if (req.is('application/x-www-form-urlencoded')) {
+                return res.redirect('transactions');
+            }
+            if (req.is('application/json')) {
+                return res.status(403).send(JSON.stringify({statut: 2, err:"Il n'y a pas assez d'argent sur le compte."}));
+            }
+          }
+
         }).catch(err => {
             console.log(err);
             next(err);
