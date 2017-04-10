@@ -2,7 +2,7 @@
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Accounts', {
         account_nb: {
-            type: DataTypes.UUID,
+            type: DataTypes.STRING,
             validate: {
                 notEmpty: {
                     msg: "-> Missing account number "
@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         token:{
-          type: DataTypes.UUID,
+          type: DataTypes.STRING,
           validate: {
               notEmpty: {
                   msg: "-> Missing token "

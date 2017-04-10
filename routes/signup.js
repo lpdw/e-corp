@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const router = express.Router();
 const UserService = require('../services/userService');
 const APIError = require('../lib/apiError');
-
+const uid = require('uid-safe')
 router.get('/', (req, res, next) => {
    const err = (req.session.err) ? req.session.err : null;
    if (req.accepts('text/html')) {
