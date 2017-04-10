@@ -1,6 +1,22 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
     return sequelize.define('Transactions', {
+      id_transaction: {
+        type: DataTypes.INTEGER,
+        validate: {
+            notEmpty: {
+                msg: "-> Missing id transaction"
+            }
+        }
+      },
+      montant: {
+        type: DataTypes.FLOAT,
+        validate: {
+            notEmpty: {
+                msg: "-> Missing montant of transaction"
+            }
+        }
+      },
         payer: {
             type: DataTypes.UUID,
             validate: {

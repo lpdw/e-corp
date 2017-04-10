@@ -48,6 +48,14 @@ module.exports = (sequelize, DataTypes) => {
                   msg: "-> Missing modified at"
               }
           }
+        },
+        id_transaction: {
+          type: DataTypes.INTEGER,
+          validate: {
+              notEmpty: {
+                  msg: "-> Missing id transaction"
+              }
+          }
         }
     });
 };
