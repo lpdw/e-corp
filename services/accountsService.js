@@ -34,7 +34,7 @@ exports.debitAccount = (account, amount) => {
 }
 exports.creditAccount = (account, amount) => {
     return db.Accounts.update({
-        credit: parseFloat(account.credit + amount)
+        credit: parseFloat(account.credit) + parseFloat(amount)
     }, {
         where: {
             id: account.id
