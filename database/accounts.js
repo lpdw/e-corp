@@ -49,13 +49,13 @@ module.exports = (sequelize, DataTypes) => {
               }
           }
         },
-        id_transaction: {
-          type: DataTypes.INTEGER,
-          validate: {
-              notEmpty: {
-                  msg: "-> Missing id transaction"
-              }
-          }
-        }
+        // id_transaction: {
+        //   type: DataTypes.INTEGER,
+        //   validate: {
+        //       notEmpty: {
+        //           msg: "-> Missing id transaction"
+        //       }
+        //   }
+        // }
     });
 };
