@@ -132,7 +132,7 @@ const bodyVerificator = (req, res, next) => {
     return next(error);
 };
 router.post('/', bodyVerificator, (req, res, next) => {
-    if (!req.accepts('application/json') || !req.accepts('text/html')) {
+    if (!req.accepts('application/json') && !req.accepts('text/html')) {
         return next(new APIError(406, 'Not valid type for asked ressource'));
     }
     //1. On vérifie l'existence des comptes et le token
